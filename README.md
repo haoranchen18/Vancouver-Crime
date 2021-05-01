@@ -19,3 +19,6 @@ Our visualization was developed and optimized for a minimum screen width of 1600
 ### Credits
 
 This is a group project. There are three people in our team. Thank so much for our teammates'(HC, YZ, MW) great contribution. 
+
+### URL
+https://haoranchen18.github.io/Vancouver-Crime/
