@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Vancouver Crime</title>
+    <!--Import leaflet.js-->
+    <script src="./js/leaflet.js"></script>
+    <link rel="icon" href="data:;base64,iVBORwOKGO=" />
+    <link rel="stylesheet" href="css/style.css">
+    <!--Import leaflet.css-->
+    <link rel="stylesheet" href="css/leaflet.css">
+    <link rel="stylesheet" href="css/d3-tip.css">
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="css/materialize.css" media="screen,projection" />
+</head>
+
+<body onload="loadingFunction()" class="container">
+    <div class="row">
+        <h1 class="title-main">Vancouver Crime</h1>
+
+        <div class="description flow-text">
+            <p>
+                With the constant developments taking place in Vancouver, crime rates and their patterns have been
+                changing over the last few years. If we could understand how these patterns have changed in the past,
+                then we could gain insight into patterns of crime that could occur in the future. This could be
+                especially useful for those who are exploring neighborhoods when purchasing property, or those who want
+                to determine if their office would be safer to take public transit to rather than car or bicycle given a
+                high-theft area. To address this challenge, our app allows current or prospective Vancouver residents to
+                visually explore a dataset of crimes in Vancouver from 2003 to 2017. Our app shows the overall crime
+                trend in Vancouver, as well as common types of crime that occur. Users are able to filter crimes based
+                on date range, and see how their distributions differ across distinct regions in Vancouver. In addition,
+                information on which neighborhoods rank the highest in a category of crime, depending on time of day and
+                broken down by blocks within each neighborhood, is easy to see with our visualization.
+            </p>
+            <p>
+            <div>
+                This app uses data extracted from the Vancouver Open Data Catalogue from
+                January 1, 2003 to July 13, 2017 and was found on
+                <a href=" https://www.kaggle.com/wosaku/crime-in-vancouver">Kaggle</a>.
+            </div>
+            </p>
+        </div>
+    </div>
+
+    <div class="row">
+        <a class="skip-to" href="#crimes-by-year">
+            <div class="col s6 m6 l3">
+                <div class="card card-skip-to">
+                    <div class="card-content">
+                        <span class="card-title card-title-skip-to">1. Select the range of years for which you want to
+                            see crimes</span>
+                        <span class="card-content-list">
+                            <p>• Resize the timeline selection to discover how crime rates have changed over time</p>
+                            <p>• Use the dropdown menu to view by absolute or relative counts</p>
+                            <p>• Explore how distributions of crime have changed over time by the map</p>
+                            <p>• Identify how relative levels of different types of crime have changed over time by
+                                the donut chart</p>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </a>
+        <a class="skip-to" href="#crimes-by-location">
+            <div class="col s6 m6 l3">
+                <div class="card card-skip-to">
+                    <div class="card-content">
+                        <span class="card-title card-title-skip-to">2. Locate which areas of Vancouver have become high
+                            or low crime regions from the map</span>
+                        <span class="card-content-list">
+                            <p>• Identify clusters of dots to see high crime areas</p>
+                            <p>• Hover over a dot to see more detailed information about a crime</p>
+                            <p>• The rendered dots on the map are based on sampled data that
+                                preserves the original distribution of crimes in the dataset.
+                            </p>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </a>
+        <a class="skip-to" href="#crimes-by-type-and-block">
+            <div class="col s6 m6 l3">
+                <div class="card card-skip-to">
+                    <div class="card-content">
+                        <span class="card-title card-title-skip-to">3. Select a type of crime that you want to focus
+                            on</span>
+                        <span class="card-content-list">
+                            <p>• Identify neighborhoods in Vancouver that are high in a particular type of crime
+                                by viewing the bubble chart</p>
+                            <p>• Identify high-crime blocks within a neighborhood</p>
+                            <br />
+                            <p class="card-caption">Note: There is no location data for the “offence” crime in order to
+                                protect the privacy of those involved, so they will not be displayed in the bubble
+                                chart nor map.
+                            </p>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </a>
+        <a class="skip-to" href="#crimes-by-type-and-block">
+            <div class="col s6 m6 l3">
+                <div class="card card-skip-to">
+                    <div class="card-content">
+                        <span class="card-title card-title-skip-to">4. See how neighborhoods rank in crime based on time
+                            of day</span>
+                        <span class="card-content-list">
+                            <p>• Use the checkboxes to see how these rankings change when crimes are committed during
+                                the day vs. night</p>
+                            <br />
+                            <p class="card-caption">Note: If there are too many blocks in a cluster, not all blocks will
+                                be displayed</p>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <div class="row" id="loader">
+        <div class="col s12 center-align">
+            <div class="preloader-wrapper big active">
+                <div class="spinner-layer spinner-blue-only">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col s12 center-align">
+            <h4 class="loading-text">Loading...</h4>
+        </div>
+    </div>
+    
+
+    <div class="row" id="myDiv" style="visibility: hidden;">
+
+        <div class="row" id="crimes-by-year">
+            <h5 class="view-heading">Crimes by year</h5>
+            <div>
+                <div class="control-bar">
+                    <select id="display-type-selection">
+                        <option value="absolute">Absolute numbers (shown as a magnitude of 1000)</option>
+                        <option value="relative">Relative numbers</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col s12 center-align">
+                <svg id="stacked-area-chart"></svg>
+                <svg id="brush-timeline"></svg>
+            </div>
+        </div>
+
+        <div class="row" id="crimes-by-location">
+            <h5 class="view-heading">Crimes by location</h5>
+            <div class="col s10 center-align">
+                <div id="map"></div>
+            </div>
+        </div>
+
+        <div class="row" id="crimes-by-type-and-block">
+            <div id="donut-bubble-container" class="flex-container">
+                <div class="container-donutChart">
+                    <h5 class="view-heading">Crimes by type</h5>
+                    <svg id="donut-chart"></svg>
+                </div>
+
+                <div class="bubbleChart-container flex-child">
+                    <div class="inner">
+                        <h5 class="view-heading">Crimes by top 5 neighbourhoods</h5>
+                        <div>
+                            <form action="#">
+                                <div class="flex-container">
+                                    <div class="flex-child">
+                                        <label>
+                                            <input type="checkbox" class="filled-in" id="checkbox-daytime" checked />
+                                            <span>Day Time (6 AM - 5:59 PM)</span>
+                                        </label>
+                                    </div>
+                                    <div class="flex-child">
+                                        <label>
+                                            <input type="checkbox" class="filled-in" id="checkbox-nighttime" checked />
+                                            <span>Night Time (6 PM - 5:59 AM)</span>
+                                        </label>
+                                    </div>
+
+                                </div>
+                            </form>
+                        </div>
+                        <svg id="bubblechart"></svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="tooltip"></div>
+
+    <script src="js/d3.v6.min.js"></script>
+    <script src="./js/d3-tip-v6.js"></script>
+    <script src="js/d3fc-rebind.min.js"></script>
+    <script src="js/d3fc-sample.min.js"></script>
+    <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+    <script type="text/javascript" src="js/materialize.min.js"></script>
+    <script src="js/bubbleChart.js"></script>
+    <script src="js/dotDensityMap.js"></script>
+    <script src="js/donutChart.js"></script>
+    <script src="js/timeline.js"></script>
+    <script src="js/stackedAreaChart.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>
