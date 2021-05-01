@@ -1,0 +1,209 @@
+body {
+    padding-bottom: 300px;
+    background-color: #deeff5;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+/*
+Main title
+*/
+.title-main {
+    color: #039be5;
+    justify-content: center;
+    display: flex;
+}
+
+.view-heading {
+    color: #039be5;
+}
+
+/*
+Description of entire app
+*/
+.description {
+    font-size: 15px !important;
+}
+
+/*
+Card
+*/
+a.skip-to {
+    text-decoration: none;
+    color: black !important;
+}
+
+.card-content-list {
+    font-size: 12px;
+}
+
+.card-title.card-title-skip-to {
+    font-size: 16px !important;
+    color: #039be5;
+    line-height: normal !important;
+    /* min-height: 90px; */
+    align-items: center;
+}
+
+.card {
+    border-radius: 20px !important;
+}
+
+.card.card-skip-to {
+    /* height: 100%; */
+}
+
+.card-caption {
+    font-style: italic;
+}
+
+/* ------ */
+
+
+/*
+Caption for a chart
+*/
+.chart-caption {
+    font-style: italic;
+}
+
+/*
+Select
+*/
+.control-bar {
+    padding-bottom: 20px;
+    text-align: center;
+    justify-content: center;
+}
+
+#display-type-selection {
+    display: block;
+    width: 160px;
+    border-radius: 20px;
+    outline-style: none;
+}
+/* ---------- */
+
+/* Flex container */
+.flex-container {
+    display: flex;
+}
+
+.flex-child {
+    flex: 1;
+}
+
+.inner {
+    position: absolute;
+}
+/* ----- */
+
+.axis-label {
+    font-weight: bold;
+}
+
+.legend-label {
+    font-size: 12px;
+}
+
+/* Tooltip */
+#tooltip {
+    position: absolute;
+    display: none;
+    border: 1px solid #000;
+    font-size: 12px;
+    font-weight: 500;
+    padding: 20px;
+    min-width: 160px;
+    max-height: 83px;
+    line-height: 1.4;
+    box-shadow: 0 4px 20px 4px rgba(0, 20, 60, 0.1),
+        0 4px 80px -8px rgba(0, 20, 60, 0.2);
+    background-color: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+}
+
+/* Tooltip Title*/
+.tooltip-title {
+    font-size: 13px;
+    font-weight: bold;
+    padding-bottom: 3px;
+    color: #039be5;
+}
+
+/* Tooltip list*/
+#tooltip ul {
+    margin: 5px 0 0 0;
+    padding: 5px;
+}
+
+/* Tooltip Country and year range subtitle line*/
+.tooltip-subtitle {
+    font-style: italic;
+}
+
+.tooltip-bold {
+    color: #039be5; 
+}
+
+.bubbleChart-container {
+    display: none;
+}
+
+.pie-hover {
+    fill: cornsilk;
+}
+
+.pie-title {
+    font-weight: bold;
+}
+
+/* Styling for active pie slice (crime type filter)*/
+.active {
+    fill: cornsilk;
+}
+
+.pie-labels {
+    font-size: 12px;
+}
+
+/*Styling for the lines connecting the labels to the slices*/
+polyline {
+    opacity: .3;
+    stroke: black;
+    stroke-width: 2px;
+    fill: none;
+}
+
+#map {
+    max-height: 750px;
+    max-width: 1280px;
+    border-radius: 20px;
+    border: 2px solid #fff;
+}
+
+.chart-container {
+    display: flex;
+    justify-content: center;
+}
+
+/*Add outline to brush selection*/
+.brush-context {
+    stroke: #00acc1;
+    stroke-width: 0.5px;
+    fill-opacity: 0.5;
+}
+
+#loader {
+    padding-top: 100px;
+}
+
+.loading-text {
+    color: #039be5;
+}
+  
+#myDiv {
+    visibility: hidden;
+}

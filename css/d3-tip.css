@@ -1,0 +1,62 @@
+/**
+ * Minified by jsDelivr using clean-css v4.2.3.
+ * Original file: /gh/bumbeishvili/d3-tip-for-v6@4/d3-tip.css
+ *
+ * Do NOT use SRI with dynamically generated files! More information: https://www.jsdelivr.com/using-sri-with-dynamic-files
+ */
+.d3-tip {
+  line-height: 1.4;
+  padding: 20px;
+  pointer-events: none !important;
+  /* color: #203d5d; */
+  box-shadow: 0 4px 20px 4px rgba(0, 20, 60, 0.1),
+    0 4px 80px -8px rgba(0, 20, 60, 0.2);
+  background-color: rgba(255, 255, 255, 0.95);
+  border-radius: 20px;
+  border: 1px solid #000;
+  z-index: 9999;
+  font-size: 12px;
+}
+
+.d3-tip ul {
+  margin: 5px 0 0 0;
+  padding: 5px;
+}
+
+.d3-tip:after {
+  box-sizing: border-box;
+  display: inline;
+  font-size: 10px;
+  width: 100%;
+  line-height: 1;
+  color: rgba(255, 255, 255, 0.50);
+  position: absolute;
+  pointer-events: none;
+}
+.d3-tip.n:after {
+  content: "▼";
+  margin: -1px 0 0 0;
+  top: 100%;
+  left: 0;
+  text-align: center;
+}
+.d3-tip.e:after {
+  content: "◀";
+  margin: -4px 0 0 0;
+  top: 50%;
+  left: -8px;
+}
+.d3-tip.s:after {
+  content: "▲";
+  margin: 0 0 1px 0;
+  top: -8px;
+  left: 0;
+  text-align: center;
+}
+.d3-tip.w:after {
+  content: "▶";
+  margin: -4px 0 0 -1px;
+  top: 50%;
+  left: 100%;
+}
+/*# sourceMappingURL=/sm/a4ddd7644d2c3a13ece11dcd08abc909ba8ed30a13eae94b3c48395458603f10.map */
